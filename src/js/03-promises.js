@@ -23,12 +23,15 @@ function createPromise(position, delay) {
     }, delay);
   });
 }
+
 function onFormEl(e) {
   e.preventDefault();
-  let del = +refs.delayEl.value;
+  let delValue = +refs.delayEl.value;
   let delStep = +refs.stepEl.value;
+
   for (let i = 0; i < refs.amountEl.value; i += 1) {
-    createPromise(i + 1, (del += delStep))
+    let delayValue = delValue + delStep * i;
+    createPromise(i + 1, delayValue)
       .then(({ position, delay }) => {
         return Notiflix.Notify.success(
           `✅ Fulfilled promise ${position} in ${delay}ms`
